@@ -5,16 +5,16 @@ use PHPMailer\PHPMailer\SMTP;
 
 // Load PHPMailer classes into the global namespace
 require_once './PHPMailer/src/PHPMailer.php';
-require 'path/to/PHPMailer/src/PHPMailer.php';
+require_once './PHPMailer/src/Exception.php';
 require_once './PHPMailer/src/SMTP.php';
 
 // Check if the form has been submitted
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   
   // Sanitize the form data
-  $name = filter_var($_POST['name'], FILTER_SANITIZE_STRING);
+  $name = filter_var($_POST['name'], FILTER_SANITIZE_SPECIAL_CHARS);
   $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
-  $message = filter_var($_POST['message'], FILTER_SANITIZE_STRING);
+  $message = filter_var($_POST['message'], FILTER_SANITIZE_SPECIAL_CHARS);
 
   // Create a new PHPMailer instance
   $mail = new PHPMailer(true);
